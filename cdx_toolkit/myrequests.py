@@ -87,10 +87,10 @@ def myrequests_get(url, params=None, headers=None, cdx=False, allow404=False):
                 if dns_fatal(url):
                     raise ValueError('invalid hostname in url '+url) from None
 
-            if connect_errors > 5:
+            if connect_errors > 1:
                 LOGGER.error(string)
                 raise requests.exceptions.ConnectionError("429 rate limited")
-            if connect_errors > 1:
+            if connect_errors > 0:
                 LOGGER.warning(string)
             LOGGER.info('retrying after 1s for '+str(e))
             time.sleep(1)
